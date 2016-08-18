@@ -1,0 +1,58 @@
+Abstract
+
+Based on two pedestrian samples, we present a model to explain the reason why sometimes pedestrians change their trajectories rather than walking as a straight line. We label the influencer in the dateset and obtain a probability model with 2-D KDE. With this model, we can calculate the relative influence likelihood of other pedestrians. We also present a method to predict if there is any pedestrian out of screen and his possible position. At last, we apply our model to the testing video and evaluate the model.
+
+
+I. Introduction
+
+Most pedestrians will choose walk as a straight line in a no-crowded space, because we always choose the shortest path to get our destination. But in a crowded space, pedestrians will change their trajectories because of interaction with others. In most cases, there are two explanations for this, pedestrians change their trajectories to avoid someone in front of them or return to their original trajectories after avoiding a pedestrian. Certainly, sometimes pedestrians will make some small actions for other reason, such as keeping safe distance from others. And some pedestrians just appear incompetent while walking.
+
+In our work, we want to figure out why pedestrians yield instead of walking as a straight line. We look into the dataset of ETH Walking Pedestrians(EWAP) and classify the agents by trajectories. Most agents only have one clear inflection point in the whole trajectory as infinite view. Our approach selects all the agents with one inflection point by a trajectory-dividing algorithm, and transforms their trajectories and other agents¡¯ position when the inflection points happen to a same coordinate system. From the position of other agents at the same time of inflection point, we note that there are a lot of agents close to inflection point on the turn side. This phenomenon happens because pedestrians always change their trajectories after passing another pedestrian to avoid confusion. But not every other pedestrian is influencing focus agent, we need to focus the interaction between pedestrians.
+
+We labeled the influencer of focus agents by watching the video directly. These wandering agents, staying agents and incompetent agents aren¡¯t considered by us. After the transformation, we obtain a distribution of influencers¡¯ point in the view of focus agent by 2-D KDE. The two dimensions are bearing and range. By this model, we make a video to show the likelihood of influencer with another dataset. In this video, blue cross is the focus agent, red square means highest likelihood influencer and green squares mean other influencer. The length of square means the relative likelihood weather this agent is influencer. We can see the reason clearly why pedestrian yield while walking by these square.
+
+In the meanwhile, we also present a method to forecast the existence of pedestrian we can¡¯t see. For example, if we observe a turn of focus pedestrian and there is no agent around. We will say there maybe another pedestrian in the front of him. In the video, the square on the edge of screen mean the likelihood weather there is a pedestrian going to walk in the screen.
+Definitions and Problem Statement
+
+
+
+III.Method
+
+When a pedestrian yields rather than walking as straight line, there are usually some other pedestrians around. Assume the focus agent is agent F, and his trajectory is T. On the trajectory T, there are {n} infection points I={I1,I2,...} break trajectory to {n-1} broken lines L={L1,L2,...}. And when the infection point {In} happens, there are other pedestrians M = {M1,M2,...} with the absolute position P = {Pn1,Pn2,...} [figure 2]. First we need to fit the trajectory with broken lines to classify the agents.
+
+A Basic Approach
+
+One of the most important method is classifying pedestrian by the number of infection point and the angle of turning. The tracking frames of the dataset we use is 2.5, we make straight line every three point to get rid of subtle angle difference between adjacent point. Then, we calculate the angle difference between every two lines to create a upper triangular matrix S. By this matrix, we can divide the trajectory to broken lines easily.
+If we only want to deal with trajectory with one infection point, we need to find the maximal absolute value in S. It means that we find the maximal angle difference between every two lines, so we can use the two lines to fit trajectory as two broken lines. If we want to fit trajectory with more infection points, what we need to do is finding all the local maximal(minimal) values in the matrix. Every row or line of local maximal(minimal) value in the S is an infection point. But sometimes this method will obtain incorrect infection point as subtle noise in the dataset, we use another scenario to filter incorrect infection points.
+After obtaining all the infection points, we put the absolute angles(at absolute coordinate system) of these lines into a vector A and set a threshold Q. The scenario chooses first element of vector A as reference point and searches the vector until it finds an value¡¯s difference with reference point¡¯s value bigger than threshold Q. Then the scenario will regard this point as correct infection point and take this point as reference point to continue searching until finish the whole vector[scenario 1]. After searching, all the reference points are infection points Ii of this trajectory.
+This approach solves the trajectory¡¯s fitting-line problem successfully if the trajectory behaves like a few of broken lines. But if the trajectory behaves like a arc with small curvature, the approach won¡¯t work well because it¡¯s difficult to fit arc with a few lines[figure 3].
+
+To observe the relative position between focus agent and other agents¡¯ position at the infection points time, we need to transfer all the focus agent with one infection point to a same coordinate system. We transform the first fitting line L1 to negative X-axis to make sure focus agent come from -X to +X and move the first infection point I1 to (0,0)[transform formula]. Other agents¡¯ position {P} need to be transformed as the same matrix and we mirror the agents which turn right to make them turn right.
+Now we get a map about focus agents¡¯ trajectories and other pedestrians¡¯ position when the infection point happens[figure 4]. We can see that there are a lot of pedestrians gather around (0,1). People always turn after passing another pedestrian in the direction they¡¯re going to turn, because they don¡¯t want confuse other pedestrian while walking. This reason make other pedestrians gather around in the direction which focus agent will turn and near to the infection point.
+But in figure 4, there are still so many pedestrians in the other place to make results cluttered. If we only want see where the real influencers are, what we need to do is labeling them in the video.
+
+B Training
+
+First we need to know the judgment about influencers. Pedestrians¡¯ turning usually cause by various reasons, but two of them happen most : a. pedestrian turn when he find another pedestrian who¡¯s in front of him; b. pedestrian turn after he passing another pedestrian who block his way. From this two case, we can conclude two rules about judging influencer: a. If focus agent don¡¯t turn and keep the direction of first broken line L1, focus agent will collide the front pedestrian, we regard the front pedestrian as an influencer; b. At the same time of I2, if another pedestrian block the straight way from infection point I1 to I3, we regard the blocked pedestrian as an influencer.[figure 5]
+With the two rules above, we label the video of ETH by watching the behaviors of every pedestrian in the dataset. We have 420 agents in the dataset, but 242 of them are lost or have no interaction with others, so we have 178 valuable samples totally. These samples need to be transformed by the same transformation as basic approach.
+We classify all the samples with two broken lines by the angle between them. Then we get two figures about 
+
+
+C Model
+
+D Prediction
+
+IV. Evaluation
+
+
+
+
+
+PS: 
+1.Rule about labeling and evaluation
+2.no-crowd environment
+3.Another way to fit trajectory
+
+1.Rule about labeling and evaluation
+a. If the focus agent don¡¯t turn, he will collide with one of pedestrians around. We regard the pedestrian as an influencer.
+b. If the focus agent¡¯s trajectory will collide with the history trajectory of a pedestrian. We regard the pedestrian as an influencer.
