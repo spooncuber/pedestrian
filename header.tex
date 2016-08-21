@@ -1,0 +1,186 @@
+\usepackage{xspace}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{graphicx}
+%\usepackage{psfig}
+%\usepackage{color}
+\usepackage{tikz}
+\usetikzlibrary{arrows,shapes}
+\usetikzlibrary{patterns}
+\usepackage[numbers,sort&compress]{natbib}
+%\usepackage[backend=bibtex, natbib=true, style=numeric,firstinits=true, url=false, doi=false, isbn=false, maxbibnames=5]{biblatex}
+
+\usepackage{mdwlist}
+%\usepackage{enumitem}
+\usepackage[export]{adjustbox}
+
+\usepackage{ifthen,version}
+\newboolean{include-notes}
+%\usepackage[usenames,dvipsnames]{color}
+% Comment out the following line to exclude the notes.
+\setboolean{include-notes}{false}
+\newcommand{\rknote}[1]{\ifthenelse{\boolean{include-notes}}%
+ {\textcolor{Dandelion}{\textbf{RK: #1}}}{}}
+\newcommand{\wtnote}[1]{\ifthenelse{\boolean{include-notes}}%
+ {\textcolor{ForestGreen}{\textbf{WT: #1}}}{}}
+\newcommand{\aanote}[1]{\ifthenelse{\boolean{include-notes}}%
+ {\textcolor{SkyBlue}{\textbf{AA: #1}}}{}}
+
+
+%% Modify caption size to 10pt
+\usepackage{caption}
+\DeclareCaptionFormat{capfont}{\fontsize{10}{6}\selectfont#1#2#3}
+\captionsetup{format=capfont}
+\usepackage{subcaption}
+\captionsetup[subfigure]{format=capfont}
+
+\usepackage[normalem]{ulem}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{booktabs}
+
+% Insert hyperlinks in the document
+\usepackage{hyperref}
+\hypersetup{bookmarksopen,bookmarksnumbered,
+pdfpagemode=UseOutlines,
+colorlinks=true,
+linkcolor=blue,
+anchorcolor=blue,
+citecolor=blue,
+filecolor=blue,
+menucolor=blue,
+urlcolor=blue
+}
+
+\newcommand{\ind}[1]{\ 1\hspace{-2.3mm}{1}{\left\{#1\right\}}}
+
+\newcommand{\figref}[1]{Figure~\ref{#1}}
+\newcommand{\secref}[1]{Section~\ref{#1}}
+\newcommand{\thmref}[1]{Theorem~\ref{#1}}
+\newcommand{\lemref}[1]{Lemma~\ref{#1}}
+\newcommand{\defref}[1]{Definition~\ref{#1}}
+\newcommand{\corref}[1]{Corollary~\ref{#1}}
+\newcommand{\exref}[1]{Example~\ref{#1}}
+
+
+%\newtheorem{theorem}{Theorem}
+%\newtheorem{lemma}[theorem]{Lemma}
+%\newtheorem{ulemma}[theorem]{Utility Lemma}
+%\newtheorem*{conc}{Conclusion}
+%\newtheorem{definition}{Definition}
+%\newtheorem{claim}[theorem]{Claim}
+%\newtheorem{remark}{Remark}[section]
+%\newtheorem{corollary}[theorem]{Corollary}
+%\newtheorem{assumption}[theorem]{Assumption}
+%\newtheorem{proposition}[theorem]{Proposition}
+%\newtheorem{condition}[theorem]{Condition}
+%\newtheorem{example}{Example}[section]
+
+
+
+%\newtheorem{corollary}[theorem]{Corollary}
+
+%\newenvironment{proof}[1][Proof]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+%\newenvironment{definition}[1][Definition]{\begin{trivlist}
+%\item[\hskip \labelsep {\bfseries #1}]}{\end{trivlist}}
+
+%\newcommand{\qed}{\nobreak \ifvmode \relax \else
+  %    \ifdim\lastskip<1.5em \hskip-\lastskip
+    %  \hskip1.5em plus0em minus0.5em \fi \nobreak
+      %\vrule height0.5em width0.6em depth0.25em\fi}
+
+
+\newcommand{\etal}{{\it et al}}
+
+\newcommand{\half}{\frac{1}{2}}
+\newcommand{\thalf}{\frac{1}{2}}
+\newcommand{\reals}{\ensuremath{\mathbb{R}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\one}[1]{\left[\!\left[ #1 \right]\!\right]}
+\newcommand{\argmin}[1]{\underset{#1}{\mathrm{argmin}} \:}
+\newcommand{\argmax}[1]{\underset{#1}{\mathrm{argmax}} \:}
+\newcommand{\E}[1]{{\mathbb{E}\left[{#1}\right]}}
+\newcommand{\Xcal}{\mathcal{X}}
+\newcommand{\Ycal}{\mathcal{Y}}
+\newcommand{\Zcal}{\mathcal{Z}}
+
+\newcommand{\hE}[1]{{\mathbb{\hat{E}}\left[{#1}\right]}}
+\newcommand{\Ep}[2]{{\mathbb{E}_{#1}\left[{#2}\right]}}
+%\DeclareMathOperator{\sign}{sign}
+%\DeclareMathOperator{\conv}{conv}
+\newcommand{\aO}{\tilde{O}}
+\newcommand{\bigO}[1]{{{\cal O}\left({#1}\right)}}
+\newcommand{\abigO}[1]{{\aO\left({#1}\right)}}
+\newcommand{\hinge}[1]{[#1]_+}
+\newcommand{\ip}[2]{{\left\langle{#1},{#2}\right\rangle}}
+\newcommand{\inner}[1]{{\left\langle{#1}\right\rangle}}
+\newcommand{\abs}[1]{\left\lvert{#1}\right\rvert}
+\newcommand{\norm}[1]{\left\lVert{#1}\right\rVert}
+\newcommand{\PR}[1]{\Pr\left({#1}\right)}
+\newcommand{\ewp}{\ast}
+
+
+
+\newcommand{\shai}[1]{\noindent{\textcolor{red}{\{\em #1\} {\bf --Shai}}}}
+\newcommand{\nati}[1]{\noindent{\textcolor{red}{\{\em #1\} {\bf --Nati}}}}
+%\newcommand{\comment}[1]{}
+
+
+% Eric's font commands.
+\makeatletter
+\DeclareFontFamily{OMX}{MnSymbolE}{}
+\DeclareSymbolFont{MnLargeSymbols}{OMX}{MnSymbolE}{m}{n}
+\SetSymbolFont{MnLargeSymbols}{bold}{OMX}{MnSymbolE}{b}{n}
+\DeclareFontShape{OMX}{MnSymbolE}{m}{n}{
+    <-6>  MnSymbolE5
+   <6-7>  MnSymbolE6
+   <7-8>  MnSymbolE7
+   <8-9>  MnSymbolE8
+   <9-10> MnSymbolE9
+  <10-12> MnSymbolE10
+  <12->   MnSymbolE12
+}{}
+\DeclareFontShape{OMX}{MnSymbolE}{b}{n}{
+    <-6>  MnSymbolE-Bold5
+   <6-7>  MnSymbolE-Bold6
+   <7-8>  MnSymbolE-Bold7
+   <8-9>  MnSymbolE-Bold8
+   <9-10> MnSymbolE-Bold9
+  <10-12> MnSymbolE-Bold10
+  <12->   MnSymbolE-Bold12
+}{}
+
+\let\llangle\@undefined
+\let\rrangle\@undefined
+\DeclareMathDelimiter{\llangle}{\mathopen}%
+                     {MnLargeSymbols}{'164}{MnLargeSymbols}{'164}
+\DeclareMathDelimiter{\rrangle}{\mathclose}%
+                     {MnLargeSymbols}{'171}{MnLargeSymbols}{'171}
+\makeatother
+
+\newcommand{\multiminimax}[1]{\ensuremath{\left\llangle #1\right\rrangle}}
+\newcommand{\s}{\mathbf{s}}
+\newcommand{\Ldim}{ldim}
+
+\definecolor{Orange}{rgb}{1,0.5,0}
+\definecolor{Green}{rgb}{0.5,1.0,0.5}
+\definecolor{Blue}{rgb}{0.5,0.5,1.0}
+\definecolor{Red}{rgb}{1,0.5,0.5}
+\newcommand{\todo}[1]{\textsf{\textbf{\textcolor{Orange}{[[#1]]}}}}
+\newcommand{\rmk}[2]{\textcolor{red}{\textbf{#1}:\ [[#2]]}}
+
+
+%\setlength{\parskip}{5mm plus4mm minus5mm}
+
+%Unmanned Vehichles, adapted from UAVs
+\newcommand{\CPS}{AV\xspace}
+%\newcommand{\CPS}{LAM\xspace}
+\newcommand{\CPSs}{{\CPS}s\xspace}
+
+% Editing markup commands
+\newcommand{\repl}[2]{{\color{red}\sout{#1}} {\color{blue} #2}}
+\newcommand{\rem}[1]{{\color{red}\sout{#1}}}
+\newcommand{\ins}[1]{{\color{green}\underline{#1}}}
+
+\linespread{0.97}
